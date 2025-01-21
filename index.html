@@ -1,14 +1,16 @@
+```
 <!DOCTYPE html>
 <html>
 <head>
 <title>Mi Página</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="mobile-web-app-capable" content="yes">
 <style>
 body {
 font-family: Arial, sans-serif;
 text-align: center;
 background-color: blue;
 }
-
 .contenedor {
 position: absolute;
 top: 50%;
@@ -24,11 +26,24 @@ flex-direction: column;
 align-items: center;
 justify-content: center;
 }
-
 #resultado {
 font-size: 24px;
 font-weight: bold;
 margin-top: 20px;
+}
+@media only screen and (max-width: 768px) {
+body {
+font-size: 16px;
+}
+.contenedor {
+width: 90%;
+height: 90vh;
+margin: 5% auto;
+position: relative;
+top: auto;
+left: auto;
+transform: none;
+}
 }
 </style>
 </head>
@@ -38,7 +53,6 @@ margin-top: 20px;
 <button onclick="verificar()">Tocar aquí</button>
 <div id="resultado"></div>
 </div>
-
 <script>
 function verificar() {
 document.getElementById("resultado").innerHTML = "Cargando...";
@@ -50,3 +64,4 @@ document.getElementById("resultado").innerHTML = resultado;
 </script>
 </body>
 </html>
+```
