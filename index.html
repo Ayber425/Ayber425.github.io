@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Mi Página</title>
+<style>
+body {
+font-family: Arial, sans-serif;
+text-align: center;
+background-color: blue;
+}
+
+.contenedor {
+position: absolute;
+top: 50%;
+left: 50%;
+transform: translate(-50%, -50%);
+width: 300px;
+height: 300px;
+border-radius: 50%;
+background-color: #ff0000;
+color: #ffffff;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+}
+
+#resultado {
+font-size: 24px;
+font-weight: bold;
+margin-top: 20px;
+}
+</style>
+</head>
+<body>
+<div class="contenedor">
+<h1>SOLO PARA HOMBRES</h1>
+<button onclick="verificar()">Tocar aquí</button>
+<div id="resultado"></div>
+</div>
+
+<script>
+function verificar() {
+document.getElementById("resultado").innerHTML = "Cargando...";
+setTimeout(function() {
+var resultado = Math.random() < 0.5 ? "Eres gay" : "Eres hombre";
+document.getElementById("resultado").innerHTML = resultado;
+}, 2000);
+}
+</script>
+</body>
+</html>
