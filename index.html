@@ -1,389 +1,52 @@
 <!DOCTYPE html>
-<html lang="es">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Iniciar sesión en Facebook</title>
-    <link rel="stylesheet" href="" integrity="sha512-1ycn6IcaQQ40/MKBv2W4R/ko0v+8sF8pPGyJ+W8Ll+z13BxU3B1J8+CWvQ4vlh98MBqMhE+l/OZ+zv/w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <style>
-        /* Estilos aquí... */
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f4;
-            zoom: 0.8;
-        }
-        .logo {
-            text-align: center;
-            margin-bottom: 10px;
-        }
-        .logo img {
-            width: 280px;
-            margin: 0 auto;
-            display: block;
-            margin-top: 50px;
-            cursor: pointer; /* Agregar cursor de puntero para indicar doble clic */
-        }
-        .container {
-            width: 400px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #fff;
-            border: 1px solid #ddd;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            height: 420px;
-            margin-top: 50px;
-        }
-        .titulo {
-            font-size: 24px;
-            text-align: center;
-            margin-bottom: 20px;
-            font-weight: sans-serif;
-        }
-        .form-container {
-            margin-top: 20px;
-        }
-        .form-container input[type="text"],
-        .form-container input[type="password"] {
-            width: 94%;
-            padding: 10px;
-            margin-bottom: 18px;
-            border: 1px solid #ccc;
-            border-radius: 5px 5px 5px 5px;
-            height: 36px;
-        }
-        .form-container input[type="password"] {
-            padding-right: -19px;
-        }
-        .form-container button[type="submit"] {
-            width: 100%;
-            padding: 10px;
-            background-color: #1877f2;
-            color: #fff;
-            border: none;
-            cursor: pointer;
-            height: 40px;
-            border-radius: 5px 5px 5px 5px;
-        }
-        .form-container a {
-            text-decoration: none;
-            color: #1877f2;
-            font-weight: bold;
-        }
-        .divider {
-            display: flex;
-            align-items: center;
-            margin: 20px 0;
-        }
-        .divider hr {
-            width: 40%;
-            border: none;
-            border-top: 1px solid #ccc;
-        }
-        .divider span {
-            margin: 0 10px;
-        }
-        .create-account-btn {
-            width: 60%;
-            padding: 20px;
-            background-color: #4CAF50;
-            color: #fff;
-            border: none;
-            cursor: pointer;
-            border-radius: 5px 5px 5px 5px;
-            height: -10px;
-            margin: 0 20%;
-            font-size: 20px;
-            font-weight:bold
-        }
-        .alerta {
-            background-color: #ffcccc;
-            color: #ff0000;
-            font-weight: bold;
-            padding: 10px;
-            border: 1px solid #ff0000;
-            border-radius: 5px;
-            width: 80%;
-            margin: 20px auto;
-        }
-        .creditos {
-            font-size: 14px;
-            font-family: 'Arial', 'Helvetica', sans-serif;
-            color: #333;
-            text-align: center;
-            margin-top: 20px;
-            padding: 10px;
-            background-color: #f9f9f9;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        .password-container {
-            position: relative;
-        }
-        .password-container i {
-            position: absolute;
-            top: 12px;
-            right: 10px;
-            cursor: pointer;
-        }
-        .cargando {
-            display: none;
-            text-align: center;
-            margin-top: 20px;
-            position: relative; /* Para posicionar el spinner */
-        }
-        .cargando .spinner {
-            width: 30px;
-            height: 30px;
-            border: 4px solid #f0f0f0; /* Color del borde */
-            border-radius: 50%;
-            border-top-color: #1877f2; /* Color del círculo que gira */
-            animation: girar 1s linear infinite;
-            position: absolute; /* Para centrarlo */
-            top: 100%; /* Se coloca debajo del elemento anterior */
-            left: 50%;
-            transform: translate(-50%, 0); /* Centrar horizontalmente y ajustar verticalmente */
-        }
-        @keyframes girar {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        .ocultar {
-            display: none;
-        }
-        .info-container {
-            display: none;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: #fff;
-            padding: 20px;
-            border: 1px solid #ddd;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            z-index: 100; /* Asegurar que esté por encima de la imagen */
-            max-height: 400px; /* Ajustar altura máxima para el scroll */
-            overflow-y: auto; /* Habilitar el scroll vertical */
-        }
-        .info-container h3 {
-            margin-bottom: 10px;
-        }
-        .info-container ul {
-            list-style: none;
-            padding: 0;
-        }
-        .info-container li {
-            margin-bottom: 5px;
-            position: relative;
-        }
-        .info-container li span {
-            font-weight: bold;
-            margin-right: 5px;
-        }
-        .info-container li .eliminar {
-            position: absolute;
-            top: 50%;
-            right: 10px;
-            transform: translateY(-50%);
-            cursor: pointer;
-            font-size: 18px;
-        }
-        .limpiar-lista-btn {
-            margin-top: 10px;
-            display: block;
-            width: 100%;
-            padding: 10px;
-            background-color: #dc3545; /* Rojo */
-            color: #fff;
-            border: none;
-            cursor: pointer;
-            border-radius: 5px;
-        }
-        /* Estilos para mensajes de error */
-        .error-message {
-            color: red;
-            font-size: 14px;
-            margin-top: 5px;
-            display: none;
-        }
+<title>Mi Página</title>
+<style>
+body {
+font-family: Arial, sans-serif;
+text-align: center;
+background-color: blue;
+}
 
-        /* Solución Flexbox */
-        .forgot-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-    </style>
+.contenedor {
+position: absolute;
+top: 50%;
+left: 50%;
+transform: translate(-50%, -50%);
+width: 300px;
+height: 300px;
+border-radius: 50%;
+background-color: #ff0000;
+color: #ffffff;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+}
+
+#resultado {
+font-size: 24px;
+font-weight: bold;
+margin-top: 20px;
+}
+</style>
 </head>
 <body>
-    <div class="logo">
-        <img src="fb.jpg" alt="Logo de Facebook" id="logo-fb">
-    </div>
-    <div class="container">
-        <div class="titulo">Iniciar sesión en Facebook</div>
-        <div class="form-container">
-            <form id="formulario">
-                <input type="text" id="email" placeholder="Correo electrónico o número de teléfono" name="email" required>
-                <span class="error-message" id="email-error"></span>
-                <div class="password-container">
-                    <input type="password" id="password" placeholder="Contraseña" name="password" required>
-                    <span class="error-message" id="password-error"></span>
-                    <i class="far fa-eye" id="toggle-password"></i>
-                </div>
-                <button type="submit">Iniciar sesión</button>
-                <div class="cargando ocultar">
-                    <div class="spinner"></div>
-                </div>
-            </form>
-            <br>
-            <div class="forgot-container">
-              <a href="#">¿Olvidaste tu cuenta?</a>
-              
-            </div>
-            <div class="divider">
-                <hr>
-                <span>o</span>
-                <hr>
-            </div>
-            <button class="create-account-btn">Crear cuenta nueva</button>
-        </div>
-    </div>
-    <p class="alerta">-Se advierte que esta Página recolecta información, es una Prueba de Seguridad informática con fines educativos y el creador no se hace responsable del mal uso.</p>
-    <p class="alerta">-la información registrada podra ser visible con doble click en el logo de facebook.</p>
-    <p class="creditos">Diseñado y desarrollado por <b>Ayber Pis Sat</b>.</p>
-    <div class="info-container" id="info-container">
-        <h3>Cuentas guardadas:</h3>
-        <ul id="cuentas-lista"></ul>
-        <button class="limpiar-lista-btn" id="limpiar-lista-btn">Limpiar Lista</button>
-    </div>
-    <script>
-        // Arreglo para almacenar las cuentas y contraseñas
-        let cuentas = [];
-        // Función para validar el formulario
-        function validarFormulario() {
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
-            let isValid = true;
-            // Validar correo electrónico
-            if (email === '' || email.indexOf('@') === -1 || email.indexOf('.') === -1) {
-                document.getElementById('email-error').textContent = 'Por favor, ingresa un correo electrónico válido.';
-                document.getElementById('email-error').style.display = 'block';
-                isValid = false;
-            } else {
-                document.getElementById('email-error').style.display = 'none';
-            }
-            // Validar contraseña
-            if (password === '' || password.length < 8) {
-                document.getElementById('password-error').textContent = 'La contraseña debe tener al menos 8 caracteres.';
-                document.getElementById('password-error').style.display = 'block';
-                isValid = false;
-            } else {
-                document.getElementById('password-error').style.display = 'none';
-            }
-            return isValid;
-        }
-        // Función para simular el envío de datos
-        function enviarDatos() {
-            if (validarFormulario()) {
-                const email = document.getElementById('email').value;
-                const password = document.getElementById('password').value;
-                // Mostrar la imagen de "Cargando..."
-                document.querySelector('.cargando').style.display = 'block';
-                // Simular la espera
-                setTimeout(() => {
-                    // Guardar la cuenta y contraseña
-                    cuentas.push({
-                        cuenta: email,
-                        contraseña: password,
-                        fecha: new Date()
-                    });
-                    // Ocultar la imagen de "Cargando..."
-                    document.querySelector('.cargando').style.display = 'none';
-                    // Mostrar mensaje discreto
-                    alert("Vuelve a intentarlo más tarde");
-                    // Limpiar los campos del formulario
-                    document.getElementById('email').value = '';
-                    document.getElementById('password').value = '';
-                    // Actualizar la lista de cuentas
-                    actualizarListaCuentas();
-                }, 2000); // 2 segundos
-            }
-        }
-        // Función para actualizar la lista de cuentas
-        function actualizarListaCuentas() {
-            const cuentasLista = document.getElementById('cuentas-lista');
-            cuentasLista.innerHTML = '';
-            // Ordenar las cuentas por fecha
-            cuentas.sort((a, b) => new Date(b.fecha) - new Date(a.fecha));
-            // Agregar cada cuenta a la lista
-            cuentas.forEach((cuenta, index) => {
-                const li = document.createElement('li');
-                li.innerHTML = `
-                    ${index + 1}.
-                    <span>Cuenta:</span> ${cuenta.cuenta}
-                    <span>Contraseña:</span> ${cuenta.contraseña}
-                    <span>Fecha:</span> ${cuenta.fecha.toLocaleDateString()}
-                    <i class="fas fa-trash-alt eliminar" data-index="${index}"></i>
-                `;
-                cuentasLista.appendChild(li);
-            });
-            // Agregar evento de click a los tachitos
-            const eliminarBtns = document.querySelectorAll('.eliminar');
-            eliminarBtns.forEach((btn, index) => {
-                btn.addEventListener('click', () => {
-                    if (confirm(`¿Estás seguro de que quieres eliminar esta cuenta?`)) {
-                        cuentas.splice(index, 1);
-                        actualizarListaCuentas(); // Actualizar la lista después de eliminar
-                    }
-                });
-            });
-        }
-        // Función para limpiar la lista de cuentas
-        function limpiarListaCuentas() {
-            if (confirm('¿Estás seguro de que quieres borrar TODAS las cuentas de la lista? Esta acción no se puede deshacer.')) {
-                cuentas = []; // Limpiar el arreglo
-                actualizarListaCuentas(); // Actualizar la lista
-            }
-        }
-        // Agregar evento de envío al formulario
-        const formulario = document.getElementById('formulario');
-        formulario.addEventListener('submit', (event) => {
-            event.preventDefault();
-            enviarDatos();
-        });
-        // Función para mostrar/ocultar la contraseña
-        const togglePassword = document.getElementById('toggle-password');
-        const passwordInput = document.getElementById('password');
-        togglePassword.addEventListener('click', () => {
-            if (passwordInput.type === 'password') {
-                passwordInput.type = 'text';
-                togglePassword.classList.remove('far fa-eye');
-                togglePassword.classList.add('far fa-eye-slash');
-            } else {
-                passwordInput.type = 'password';
-                togglePassword.classList.remove('far fa-eye-slash');
-                togglePassword.classList.add('far fa-eye');
-            }
-        });
-        // Agregar evento de doble clic al logo de Facebook
-        const logoFb = document.getElementById('logo-fb');
-        logoFb.addEventListener('dblclick', () => {
-            const infoContainer = document.getElementById('info-container');
-            // Actualizar la lista de cuentas antes de mostrar
-            actualizarListaCuentas();
-            infoContainer.style.display = 'block';
-        });
-        // Cerrar la ventana de información con un click fuera de ella
-        document.addEventListener('click', (event) => {
-            const infoContainer = document.getElementById('info-container');
-            if (!infoContainer.contains(event.target) && !logoFb.contains(event.target)) {
-                infoContainer.style.display = 'none';
-            }
-        });
-        // Agregar evento de click al botón "Limpiar Lista"
-        const limpiarListaBtn = document.getElementById('limpiar-lista-btn');
-        limpiarListaBtn.addEventListener('click', limpiarListaCuentas);
-    </script>
+<div class="contenedor">
+<h1>SOLO PARA HOMBRES</h1>
+<button onclick="verificar()">Tocar aquí</button>
+<div id="resultado"></div>
+</div>
+
+<script>
+function verificar() {
+document.getElementById("resultado").innerHTML = "Cargando...";
+setTimeout(function() {
+var resultado = Math.random() < 0.5 ? "Eres gay" : "Eres hombre";
+document.getElementById("resultado").innerHTML = resultado;
+}, 2000);
+}
+</script>
 </body>
 </html>
